@@ -9,6 +9,6 @@ def seturl(set):
         return set.primary.owner
 
     format = "http://www.flickr.com/photos/%s/sets/%s/"
-    return format % (getUser(set).username, set.id)
+    return format % (getUser(set).id, set.id)
 
 register.filter(seturl)
