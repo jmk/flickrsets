@@ -39,8 +39,8 @@
             <tr>
                 {% for set in sets %}
                     <td>
-                        <a href="{{ set|seturl }}" target="_top"><img src="{{ set.primary.getSmallSquare }}" /></a><br/>
-                        <a href="{{ set|seturl }}" target="_top">{{ set.title }}</a>
+                        <a href="{{ set.url }}" target="_top"><img src="{{ set.img }}" width="75" height="75" /></a><br/>
+                        <a href="{{ set.url }}" target="_top">{{ set.title }}</a>
                     </td>
                 {% endfor %}
             </tr>
