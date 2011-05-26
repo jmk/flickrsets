@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# Use Django 1.2. (This must be done first.)
+from google.appengine.dist import use_library
+use_library('django', '1.2')
+
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template, util
 
@@ -40,7 +44,7 @@ class MainHandler(webapp.RequestHandler):
 def main():
     # Register template types.
     # XXX: Is there a better place for this?
-    webapp.template.register_template_library('filters')
+    webapp.template.register_template_library('tags.filters')
 
     application = webapp.WSGIApplication([("/", MainHandler)], debug=True)
     util.run_wsgi_app(application)
