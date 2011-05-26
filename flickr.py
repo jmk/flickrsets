@@ -25,7 +25,8 @@ __version__ = "$Rev$"
 __date__ = "$Date$"
 __copyright__ = "Copyright: 2004-2010 James Clarke; Portions: 2007-2008 Joshua Henderson; Portions: 2011 Andrei Vlad Vacariu"
 
-from urllib import urlencode, urlopen
+from urllib import urlencode
+from urllib2 import urlopen, Request
 from xml.dom import minidom
 import hashlib
 import os
@@ -1085,7 +1086,15 @@ def _doget(method, auth=False, **params):
     if debug:       
         print "_doget", url
     
-    return _get_data(minidom.parse(urlopen(url)))
+    # XXX jmk: Google App Engine's urllib implementation appears to perform
+    # request caching. We must specify a 'max-age' in order to invalidate the
+    # cached response.
+    headers = {
+        'Cache-Control': 'max-age=0',
+    }
+    request = Request(url, None, headers)
+    return _get_data(minidom.parse(urlopen(request)))
+#    return _get_data(minidom.parse(urlopen(url)))
 
 def _dopost(method, auth=False, **params):
     #uncomment to check you aren't killing the flickr server
