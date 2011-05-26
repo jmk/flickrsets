@@ -5,8 +5,14 @@
     <head>
         <style type="text/css">
 
+            table {
+                width: 100%;
+            }
+
             td {
+                width: 33%;
                 text-align: center;
+                vertical-align: top;
                 padding: 8px;
                 background: #eee;
                 font-size: 12px;
@@ -33,11 +39,12 @@
             <tr>
                 {% for set in sets %}
                     <td>
-                        <a href="{{ set|seturl }}"><img src="{{ set.primary.getSmallSquare }}" /></a><br/>
-                        <a href="{{ set|seturl }}">{{ set.title }}</a>
+                        <a href="{{ set|seturl }}" target="_top"><img src="{{ set.primary.getSmallSquare }}" /></a><br/>
+                        <a href="{{ set|seturl }}" target="_top">{{ set.title }}</a>
                     </td>
                 {% endfor %}
             </tr>
         </table>
+
     </body>
 </html>
