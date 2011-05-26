@@ -113,6 +113,11 @@ class Photo(object):
         else:
             return super(Photo, self).__getattribute__(key)
 
+    # XXX jmk: Backdoor way to directly access a photo's id without causing it
+    # to load its other properties.
+    def _getRawID(self):
+        return self.__id
+
     def _load_properties(self):
         """Loads the properties from Flickr."""
         self.__loaded = True
@@ -356,7 +361,7 @@ class Photoset(object):
     """A Flickr photoset."""
 
     def __init__(self, id, title, primary, photos=0, description='', \
-                 secret='', server=''):
+                 secret='', server='', farm=''):
         self.__id = id
         self.__title = title
         self.__primary = primary
@@ -364,11 +369,15 @@ class Photoset(object):
         self.__count = photos
         self.__secret = secret
         self.__server = server
+        self.__farm = farm
         
     id = property(lambda self: self.__id)
     title = property(lambda self: self.__title)
     description = property(lambda self: self.__description)
     primary = property(lambda self: self.__primary)
+    secret = property(lambda self: self.__secret)
+    server = property(lambda self: self.__server)
+    farm = property(lambda self: self.__farm)
 
     def __len__(self):
         return self.__count
@@ -561,6 +570,7 @@ class User(object):
                                      Photo(photoset.primary),\
                                      secret=photoset.secret, \
                                      server=photoset.server, \
+                                     farm=photoset.farm, \
                                      description=photoset.description.text,
                                      photos=photoset.photos))
         else:
@@ -569,6 +579,7 @@ class User(object):
                                      Photo(photoset.primary),\
                                      secret=photoset.secret, \
                                      server=photoset.server, \
+                                     farm=photoset.farm, \
                                      description=photoset.description.text,
                                      photos=photoset.photos))
         return sets
