@@ -69,10 +69,6 @@ class MainHandler(webapp.RequestHandler):
         self.response.out.write("\n")
 
 def main():
-    # Register template types.
-    # XXX: Is there a better place for this?
-    webapp.template.register_template_library('tags.filters')
-
     application = webapp.WSGIApplication([("/", MainHandler)], debug=True)
     util.run_wsgi_app(application)
 
