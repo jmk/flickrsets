@@ -31,7 +31,7 @@ from xml.dom import minidom
 import hashlib
 import os
 
-HOST = 'http://flickr.com'
+HOST = 'http://www.flickr.com'
 API = '/services/rest'
 
 # set these here or using flickr.API_KEY in your application
